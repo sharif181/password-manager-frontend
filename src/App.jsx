@@ -1,11 +1,11 @@
+import { Outlet } from "react-router-dom";
 import NavBar from "./Components/NavBar";
-import LandingPage from "./Components/LandingPage";
 
 function App() {
   return (
     <>
       <NavBar />
-      <LandingPage />
+      <Outlet />
     </>
   );
 }
