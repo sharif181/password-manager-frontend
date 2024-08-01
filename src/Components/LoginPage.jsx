@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import userService from "../services/auth-service";
-import { useEffect } from "react";
 
 const schema = z.object({
   email: z
@@ -16,16 +15,21 @@ const schema = z.object({
 });
 
 const LoginPage = () => {
-  useEffect(() => {
-    userService.getToken();
-  }, []);
+  const navigator = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = (data) => {
-    console.log(data);
+    userService
+      .getToken(data)
+      .then((res) => {
+        localStorage.setItem("accessToken", res.data.access);
+        // also need to store in store if needed
+        navigator("/");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
