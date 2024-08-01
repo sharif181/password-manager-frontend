@@ -1,8 +1,8 @@
 import apiClient from "./api-client";
 
 class UserService {
-  getToken() {
-    apiClient.post("/token", { email: "test@gmail.com", password: "125" });
+  getToken(data) {
+    return apiClient.post("/users/token/", data);
   }
 }
 
