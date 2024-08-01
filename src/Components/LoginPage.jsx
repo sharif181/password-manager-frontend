@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import userService from "../services/auth-service";
+import { useEffect } from "react";
 
 const schema = z.object({
   email: z
@@ -14,6 +16,9 @@ const schema = z.object({
 });
 
 const LoginPage = () => {
+  useEffect(() => {
+    userService.getToken();
+  }, []);
   const {
     register,
     handleSubmit,
