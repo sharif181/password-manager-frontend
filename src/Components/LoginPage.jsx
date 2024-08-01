@@ -1,8 +1,24 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Email field is required" })
+    .email("This is not a valid email."),
+  password: z
+    .string()
+    .min(4, { message: "password should be minimum 4 char(s)" }),
+});
 
 const LoginPage = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -24,6 +40,9 @@ const LoginPage = () => {
               placeholder="Email Address"
               className="w-full input input-bordered input-primary"
             />
+            {errors.email && (
+              <p className="text-red-600">{errors.email.message}</p>
+            )}
           </div>
           <div>
             <label className="label">
@@ -35,6 +54,9 @@ const LoginPage = () => {
               placeholder="Enter Password"
               className="w-full input input-bordered input-primary"
             />
+            {errors.password && (
+              <p className="text-red-600">{errors.password.message}</p>
+            )}
           </div>
           <Link
             to="/"
