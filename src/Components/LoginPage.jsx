@@ -2,7 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSelector, useDispatch } from "react-redux";
+
+import { fetchToken } from "../features/auth/authSlice";
 import userService from "../services/auth-service";
+import { useEffect } from "react";
 
 const schema = z.object({
   email: z
@@ -15,21 +19,23 @@ const schema = z.object({
 });
 
 const LoginPage = () => {
+  const { isLoggin, accessToken } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigator = useNavigate();
+
+  useEffect(() => {
+    if (isLoggin) {
+      navigator("/");
+    }
+  }, [isLoggin, accessToken]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = (data) => {
-    userService
-      .getToken(data)
-      .then((res) => {
-        localStorage.setItem("accessToken", res.data.access);
-        // also need to store in store if needed
-        navigator("/");
-      })
-      .catch((err) => console.log(err));
+    dispatch(fetchToken(data));
   };
 
   return (
