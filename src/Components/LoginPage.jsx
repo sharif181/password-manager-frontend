@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector, useDispatch } from "react-redux";
 
 import { fetchToken } from "../features/auth/authSlice";
-import userService from "../services/auth-service";
 import { useEffect } from "react";
 
 const schema = z.object({
