@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userSerive from "../../services/auth-service";
 
+const token = localStorage.getItem("accessToken");
 const initialState = {
-  isLoggin: false,
-  accessToken: null,
+  isLoggin: token ? true : false,
+  accessToken: token ? token : null,
 };
 
 export const fetchToken = createAsyncThunk("auth/fetchToken", async (data) => {

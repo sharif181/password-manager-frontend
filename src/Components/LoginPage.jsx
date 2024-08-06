@@ -25,6 +25,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isLoggin) {
+      localStorage.setItem("accessToken", accessToken);
       navigator("/");
     }
   }, [isLoggin, accessToken]);
