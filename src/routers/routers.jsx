@@ -3,6 +3,7 @@ import App from "../App";
 import LandingPage from "../Components/LandingPage";
 import LoginPage from "../Components/LoginPage";
 import HomePage from "../Components/HomePage";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <HomePage />,
+        element: (
+          <PrivateRoutes>
+            <HomePage />
+          </PrivateRoutes>
+        ),
       },
     ],
   },
