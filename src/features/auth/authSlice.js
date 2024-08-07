@@ -15,6 +15,12 @@ export const fetchToken = createAsyncThunk("auth/fetchToken", async (data) => {
 const authSlice = createSlice({
   name: "auth",
   initialState,
+  reducers: {
+    setToken: (state) => {
+      state.isLoggin = false;
+      state.accessToken = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchToken.pending, (state) => {
@@ -33,3 +39,5 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+
+export const { setToken } = authSlice.actions;

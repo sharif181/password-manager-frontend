@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setToken } from "../features/auth/authSlice";
 
 const NavBar = () => {
   const { isLoggin } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    dispatch(setToken());
+    navigate("/");
+  };
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -39,7 +50,9 @@ const NavBar = () => {
                 <a className="justify-between">Profile</a>
               </li>
               <li>
-                <a>Logout</a>
+                <a onClick={handleLogout} className="justify-between">
+                  Logout
+                </a>
               </li>
             </ul>
           </div>
