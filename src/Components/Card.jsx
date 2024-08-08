@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ password }) => {
   return (
-    <div className="w-[700px] h-[150px] bg-gray-300 rounded-md shadow-xl">
+    <div className="w-[700px] h-[150px] bg-gray-300 rounded-md shadow-xl mb-4">
       <div className="p-4">
         <div className="text-start">
           <p>Website title: {password.website_name}</p>
