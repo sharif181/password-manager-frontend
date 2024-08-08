@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchPassword } from "../features/password/passwordSlice";
+import Card from "./Card";
 
 const HomePage = () => {
   const { isLoading, isError, error, passwords } = useSelector(
@@ -16,12 +17,13 @@ const HomePage = () => {
     return <div>Loading</div>;
   }
   return (
-    <div>
-      <ul>
+    <div className="flex justify-start">
+      <div className="w-1/3">sidebar</div>
+      <div className="mt-2">
         {passwords.map((password) => (
-          <li key={password.id}>{password.website_name}</li>
+          <Card key={password.id} password={password} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
