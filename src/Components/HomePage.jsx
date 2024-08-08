@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchPassword } from "../features/password/passwordSlice";
 import Card from "./Card";
 import passwordServices from "../services/password-services";
@@ -9,6 +10,7 @@ const HomePage = () => {
     (state) => state.passwords
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchPassword());
@@ -17,6 +19,10 @@ const HomePage = () => {
   const handleDelete = async (id) => {
     await passwordServices.deletePassword(id);
     dispatch(fetchPassword());
+  };
+
+  const detailsHandler = (id) => {
+    navigate(`/details/${id}`);
   };
 
   if (isLoading) {
@@ -31,6 +37,7 @@ const HomePage = () => {
             key={password.id}
             password={password}
             handleDelete={handleDelete}
+            detailsHandler={detailsHandler}
           />
         ))}
       </div>

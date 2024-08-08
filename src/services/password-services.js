@@ -23,6 +23,17 @@ class PasswordService {
 
     return isSuccess;
   }
+
+  async getPassword(id) {
+    let password = null;
+    await apiService
+      .get(`password-store/${id}`)
+      .then((res) => {
+        password = res.data;
+      })
+      .catch((err) => console.log(err));
+    return password;
+  }
 }
 
 export default new PasswordService();

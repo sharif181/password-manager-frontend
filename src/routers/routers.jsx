@@ -3,6 +3,7 @@ import App from "../App";
 import LandingPage from "../Components/LandingPage";
 import LoginPage from "../Components/LoginPage";
 import HomePage from "../Components/HomePage";
+import DetailsCard from "../Components/DetailsCard";
 import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <HomePage />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/details/:passwordId",
+        element: (
+          <PrivateRoutes>
+            <DetailsCard />
           </PrivateRoutes>
         ),
       },
