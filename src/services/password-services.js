@@ -13,6 +13,16 @@ class PasswordService {
       });
     return password;
   }
+
+  async deletePassword(id) {
+    let isSuccess = false;
+    await apiService
+      .delete(`password-store/${id}`)
+      .then(() => (isSuccess = true))
+      .catch(() => (isSuccess = false));
+
+    return isSuccess;
+  }
 }
 
 export default new PasswordService();
