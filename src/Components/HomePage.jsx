@@ -26,8 +26,11 @@ const HomePage = () => {
     navigate(`/details/${id}`);
   };
 
-  const handleSubmit = (data) => {
-    console.log(data);
+  const handleSubmit = async (data) => {
+    const password = await passwordServices.createPassword(data);
+    if (password) {
+      dispatch(fetchPassword());
+    }
   };
 
   if (isLoading) {

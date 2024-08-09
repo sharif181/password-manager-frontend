@@ -34,6 +34,15 @@ class PasswordService {
       .catch((err) => console.log(err));
     return password;
   }
+
+  async createPassword(data) {
+    let password = null;
+    await apiService
+      .post("password-store/", data)
+      .then((res) => (password = res.data))
+      .catch((err) => console.log(err));
+    return password;
+  }
 }
 
 export default new PasswordService();
