@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchPassword } from "../features/password/passwordSlice";
 import Card from "./Card";
+import InputForm from "./InputForm";
 import passwordServices from "../services/password-services";
 
 const HomePage = () => {
@@ -25,6 +26,10 @@ const HomePage = () => {
     navigate(`/details/${id}`);
   };
 
+  const handleSubmit = (data) => {
+    console.log(data);
+  };
+
   if (isLoading) {
     return <div>Loading</div>;
   }
@@ -32,6 +37,7 @@ const HomePage = () => {
     <div className="flex justify-start">
       <div className="w-1/3">sidebar</div>
       <div className="mt-2">
+        <InputForm handleSubmitForm={handleSubmit} />
         {passwords.map((password) => (
           <Card
             key={password.id}
